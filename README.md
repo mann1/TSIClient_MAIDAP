@@ -14,14 +14,10 @@ for analysts, data scientists and developers working with time series data in Az
 - TSIClient: <https://raalabs-tsiclient.readthedocs.io/en/latest/>
 
 ## Installation
-We recommended to use a Python version >= 3.6. You can install the TSIClient from PyPi:
-````bash
-pip install TSIClient
-````
-Or if you want to get the latest code, directly fom GitHub:
+The original TSIClient doesnt work with our enviroment, please directly install fom GitHub:
 
 ````bash
-pip install git+https://github.com/RaaLabs/TSIClient.git
+pip install git+https://github.com/mann1/TSIClient_MAIDAP.git
 ````
 ## Quickstart
 Instantiate the TSIClient to query your TSI environment. Use the credentials from your service principal in Azure that has access to the TSI environment (you can also use environment variables to instantiate the TSIClient or provide a specific TSI api version, check the documentation).
