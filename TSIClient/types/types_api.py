@@ -66,6 +66,18 @@ class TypesApi():
 
         return json.loads(response.text)
 
+    def getVariableNames(self):
+        """Extracts supported variable names in specified TSI environment.
+
+        Returns:
+            list: The variable names are supported.
+        """
+        jsonResponse = self.getTypes()
+        varialbe_names = []
+
+        for typeElement in jsonResponse['types']:
+            varialbe_names.append(typeElement['variables'].keys())
+        return varialbe_names
 
     def getTypeTsx(self, variable_name):
         """Extracts type id and Value (tsx) from types from the specified TSI environment.
