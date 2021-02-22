@@ -255,6 +255,7 @@ class QueryApi():
     def getDataByName(
         self,
         variables,
+        variable_name,
         timespan,
         interval,
         aggregateList=None,
@@ -324,7 +325,8 @@ class QueryApi():
 
         return self._getData(
             timeseries=timeseries,
-            types = types,
+            variable_name=variable_name,
+            types=types,
             url=url,
             querystring=querystring,
             requestType=requestType,
@@ -341,6 +343,7 @@ class QueryApi():
     def getDataByDescription(
         self,
         variables,
+        variable_name,
         TSName,
         timespan,
         interval,
@@ -356,7 +359,7 @@ class QueryApi():
 
         Args:
             variables (list): The variable descriptions. Corresponds to the "description" field of the time series instances.
-            TSName (list): The column names for the refurned dataframe. Must be in the same order as the variable descriptions.
+            TSName (list): The column names for the returned dataframe. Must be in the same order as the variable descriptions.
                 These names can be arbitrary and do not need to coincide with the timeseries names in TSI. 
             timespan (list): A list of two timestamps. First list element ist the start time, second element is the end time.
                 Example: timespan=['2019-12-12T15:35:11.68Z', '2019-12-12T17:02:05.958Z']
@@ -414,6 +417,7 @@ class QueryApi():
 
         return self._getData(
             timeseries=timeseries,
+            variable_name=variable_name,
             types=types,
             url=url,
             querystring=querystring,
@@ -431,6 +435,7 @@ class QueryApi():
     def getDataById(
         self,
         timeseries,
+        variable_name,
         timespan,
         interval,
         aggregateList=None,
@@ -499,6 +504,7 @@ class QueryApi():
 
         return self._getData(
             timeseries=timeseries,
+            variable_name=variable_name,
             types=types,
             url=url,
             querystring=querystring,
@@ -515,6 +521,7 @@ class QueryApi():
     def _getData(
         self,
         timeseries,
+        variable_name,
         types,
         url,
         querystring,
@@ -528,7 +535,7 @@ class QueryApi():
         otherColNamesThanTimeseriesIds=None,
     ):
         df = pd.DataFrame()
-        typeList = self.types_api.getTypeTsx()
+        typeList = self.types_api.getTypeTsx(variable_name)
         if not isinstance(types,list):
             types = [types]
         if not isinstance(timeseries,list):

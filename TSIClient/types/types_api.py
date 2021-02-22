@@ -67,7 +67,7 @@ class TypesApi():
         return json.loads(response.text)
 
 
-    def getTypeTsx(self):
+    def getTypeTsx(self, variable_name):
         """Extracts type id and Value (tsx) from types from the specified TSI environment.
 
         Returns:
@@ -83,15 +83,14 @@ class TypesApi():
             >>> types = client.types.getTypeTsx()
         """
 
-        types={}
+        types = {}
         jsonResponse = self.getTypes()
-        
+
         for typeElement in jsonResponse['types']:
-            try:
-                typeElement['variables']['Value']['value']['tsx']
-                types[typeElement['id']] = typeElement['variables']['Value']['value']['tsx']
-            except:
-                logging.error('"Value" for type id {type} cannot be extracted'.format(type = typeElement['id']))
+            if variable_name in typeElement['variables'].keys():
+                types[typeElement['id']] = typeElement['variables'][variable_name]['value']['tsx']
+            else:
+                types[typeElement['id']] = typeElement['variables']['workingSet']['value']['tsx']
 
         return types
 
